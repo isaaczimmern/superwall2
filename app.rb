@@ -15,6 +15,10 @@ post '/posts' do
   redirect to('/')
 end
 
+post '/comments' do
+	Comment.create(:body => params[:body])
+	redirect to('/')
+end	
 post '/posts/:id/upvote' do
 	post = Post.where(:id => params[:id]).first
 	post.votes = post.votes + 1
@@ -31,6 +35,12 @@ post '/posts/:id/downvote' do
 	redirect to('/')
 end
 
+post '/posts/:id/delete' do 
+	post = Post.where(:id =>params[:id]).first
+	post.delete
+
+	redirect to('/')
+end
 
 get '/todo' do
   erb :todo
