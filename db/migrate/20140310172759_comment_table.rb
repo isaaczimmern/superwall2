@@ -3,9 +3,11 @@ Sequel.migration do
   change do
      create_table :comments do
       primary_key :id
-      foregin_key :post_id, :posts
+      foreign_key :post_id, :posts
       text :body, :null => false
       datetime :created_at, :null => false
       datetime :updated_at, :null => false
+  	end
   end
 end
+

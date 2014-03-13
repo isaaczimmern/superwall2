@@ -16,16 +16,8 @@
       <!-- Read http://www.ruby-doc.org/core-2.1.1/Time.html#method-i-strftime 
            for information about how this strftime voodoo works -->
       <p><%= post.created_at.strftime('%A, %B %-d, %Y') %></p>
-    <% comment = Comment.all %>
-    <%= comments.each do |comment| %>
-      <li>
-          <p><%= escape(comment.body) %></p>
-      </li>
-    <% end %>
-
-
-
-             <p>
+     
+     <p>
          <strong>Votes</strong> <%= post.votes %>
         <form class="upvote" action="/posts/<%= post.id %>/upvote" method="post">
             <input type="submit" value="Upvote!">
@@ -36,7 +28,7 @@
         <form class="delete" action="/posts/<%= post.id %>/delete" method="post">
             <input type="submit" value="Delete">
         </form>
-        <form acion="/comments" method="post">
+        <form action="/posts/<%= post.id %>/comments" method="post">
           <div>
            <textarea name="body"></textarea>
           </div>
@@ -44,11 +36,13 @@
           <input type="submit" value="Comment">
           </div>
         </form>
+      
       </p>
       <!-- What does "escape" do here?  What happens if you remove it? -->
       <!-- Try creating a post that contains HTML and see how that post looks
            with and without the call to escape() -->
       <p><%= escape(post.body) %></p>
+      <%= Comment.all %>
     </li>
   <% end %>
 </ol>

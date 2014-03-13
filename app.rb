@@ -7,6 +7,7 @@ set :app_file, __FILE__
 
 get '/' do
   posts = Post.reverse_order(:created_at).all
+  comments = Comment.all
   erb :index, :locals => {:posts => posts}
 end
 
@@ -15,8 +16,8 @@ post '/posts' do
   redirect to('/')
 end
 
-post '/comments' do
-	Comment.create(:body => params[:body])
+post '/posts/:id/comments' do
+	Comment.create(:body => params[:body], :post_id => params[:id])
 	redirect to('/')
 end	
 post '/posts/:id/upvote' do
